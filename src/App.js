@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Segment, Container } from "semantic-ui-react";
 import ApolloClient, { InMemoryCache } from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
+import { persistCache } from "apollo-cache-persist";
 
 import { ItemsForPurchase } from "./components/ItemsForPurchase";
 import { UserCart } from "./components/UserCart";
@@ -26,7 +27,28 @@ const client = new ApolloClient({
   },
 });
 
+async function setupPersistent() {
+  try {
+    await persistCache({
+      cache,
+      storage: window.localStorage,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export function App() {
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setupPersistent().finally(() => setHydrated(true));
+  }, []);
+
+  if (!hydrated) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <ApolloProvider client={client}>
       <Container>
