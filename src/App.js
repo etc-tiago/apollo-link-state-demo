@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Grid, Segment, Container } from "semantic-ui-react";
 
-function App() {
+import { ItemsForPurchase } from "./components/ItemsForPurchase";
+import { UserCart } from "./components/UserCart";
+
+export function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <br />
+      <Grid>
+        <Grid.Row columns="one">
+          <Grid.Column>
+            <Segment>
+              <h2>Apollo Local State Management Store</h2>
+            </Segment>
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row columns="two">
+          <Grid.Column width="eleven">
+            <ItemsForPurchase />
+          </Grid.Column>
+          <Grid.Column width="five">
+            <UserCart />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </Container>
   );
 }
-
-export default App;
