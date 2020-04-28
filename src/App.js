@@ -6,6 +6,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import { ItemsForPurchase } from "./components/ItemsForPurchase";
 import { UserCart } from "./components/UserCart";
 import { available_items } from "./api";
+import { resolvers } from "./resolvers";
 
 const cache = new InMemoryCache({});
 
@@ -21,6 +22,7 @@ const client = new ApolloClient({
       currency: "USD",
       itemsForSale: available_items,
     },
+    resolvers,
   },
 });
 
